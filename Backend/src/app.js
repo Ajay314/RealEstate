@@ -10,8 +10,8 @@ app.use(express.json());
 
 connectDB().then(()=>{
     console.log("DataBase Connected Successfully");
-    app.listen(3001,()=>{
-        console.log("Server Listening on Port 3001");
+    app.listen(3003,()=>{
+        console.log("Server Listening on Port 3003");
     })
 }).catch((err)=>{
     console.log("Error in connecting with Database");
