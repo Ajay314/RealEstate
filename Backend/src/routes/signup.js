@@ -1,7 +1,7 @@
 const express = require('express');
 const { validateSignUpData } = require('../utils/validation');
 
-const Signup = require('../models/signup');
+const signupModel = require('../models/signup');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -33,21 +33,18 @@ router.post("/login", async (req, res) => {
     try {
 
         const { email, password } = req.body;
-        const user = await Signup.findOne({ email: email });
+        const user = await signupModel.findOne({ email: email });
         if (!user) {
             throw new Error("User Not Found");
         }
 
-        const isPasswordValid = await Signup.validatePassword(password);
-        if (!isPasswordValid) {
-            throw new Error("Password is not Correct");
-        }
-        else {
+       
 
             const token = await user.getJWT();
+            console.log(token);
             res.cookie("token", token);
             res.send("Login Sucess");
-        }
+        
     }
     catch (err) {
         res.status(400).send("ERROR:" + err.message);
