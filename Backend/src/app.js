@@ -10,11 +10,13 @@ app.use(cors());
 
 const router = require("./routes/signup");
 const PropertyRouter = require("./routes/propertyRoutes");
+const adminRouter = require("./routes/admin");
 
 
 
 app.use("/", router);
 app.use("/",PropertyRouter);
+app.use("/",adminRouter);
 
 connectDB().then(()=>{
     console.log("DataBase Connected Successfully");
