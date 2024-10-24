@@ -9,11 +9,12 @@ app.use(express.json());
 app.use(cors());
 
 const router = require("./routes/signup");
+const PropertyRouter = require("./routes/propertyRoutes");
 
 
 
 app.use("/", router);
-
+app.use("/",PropertyRouter);
 
 connectDB().then(()=>{
     console.log("DataBase Connected Successfully");
