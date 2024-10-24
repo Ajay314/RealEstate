@@ -17,6 +17,24 @@ router.post('/add', async (req, res) => {
     }
   });
 
+  router.delete('/:name', async (req, res) => {
+    try {
+      await propertyModel.findOneAndDelete({ name: req.params.name });
+      res.json({ message: 'Property deleted' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+  router.put('/:name', async (req, res) => {
+    try {
+      const updatedProperty = await propertyModel.findOneAndUpdate({ name }, req.body, { new: true });;
+      res.json(updatedProperty);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  });
+
 
 
 
