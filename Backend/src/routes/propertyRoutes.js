@@ -2,6 +2,7 @@ const express = require('express');
 
 const propertyModel = require('../models/property');
 const {authorizeAdmin } = require('../middleware/authAdmin');
+const { userAuth} = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -36,6 +37,14 @@ router.post('/add',authorizeAdmin, async (req, res) => {
     }
   });
 
+  router.get('/properties',userAuth , async (req, res) => {
+    try {
+      const properties = await propertyModel.find({}); 
+    res.json(properties);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 
 
